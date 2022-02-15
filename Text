@@ -1,0 +1,696 @@
+"""
+6. A Head or Tail guessing game is played by tossing a coin and allowing the user to guess either H or T.
+
+Write separate programs for each version of the game. The versions have
+increasing levels of complexity:
+
+a. (if…else) The program uses a random function to generate either H or T. User makes a guess, and the outcome is displayed:
+
+  Run 1:
+  Head or Tail (H or T): H
+  Correct!
+  Run 2:
+  Head or Tail (H or T): H
+  Incorrect.
+
+(User can key his guess in uppercase or lowercase(that is, H or h or T or t).
+Any letter other than H or T is considered as an incorrect guess.
+"""
+from random import choice
+from myLib import getCharSet, getPositiveInteger
+
+def lab3Q6a():
+    coin = "HT"
+    tossOutcome = choice(coin)
+    guess = getCharSet("Head or Tail (H or T): ", coin)
+
+    if guess == tossOutcome:
+        print("Correct!")
+    else:
+        print("Incorrect.")
+
+#lab3Q6a()
+
+"""
+b. (for…range) The program starts by asking how many rounds the player wishes to play the game. When all the rounds are over, display the number of times the player made the correct guess.
+    How many rounds to play? : 5
+    Round 1: Head or Tail (H or T): H
+    Correct!
+    Round 2: Head or Tail (H or T): T
+    Wrong!
+    …
+    Round 5: Head or Tail (H or T): H
+    Correct!
+    You guess 3 correct out 5 rounds.
+"""
+def playOneGame(roundNumber):
+    coin = "HT"
+    tossOutcome = choice(coin)
+    guess = getCharSet("Round {}: Head or Tail (H or T): ".format(roundNumber), coin)
+
+    if guess == tossOutcome:
+        print("Correct!")
+        return 1
+    else:
+        print("Incorrect.")
+        return 0
+
+def lab3Q6b():
+    rounds = getPositiveInteger("How many rounds to play?: ")
+    wins = 0
+    for i in range(1,rounds+1):
+        wins = wins + playOneGame(i)
+
+    print("You guess {} correct out {} rounds.".format(wins, rounds))
+
+#lab3Q6b()
+
+"""
+(while) This version re-tosses the coin whenever the player makes a wrong guess and allow the player to keep guessing until he make a correct guess. Display the number of tosses the player takes to make a correct guess.
+    Head or Tail (H or T): H
+    Wrong!
+    Head or Tail (H or T): T
+    Wrong!
+    Head or Tail (H or T): H
+    Correct!
+    You got it in 3 tosses!
+"""
+def playGame():
+    coin = "HT"
+    noOfTries = 0
+    while True:
+        tossOutcome = choice(coin)
+        print(tossOutcome)
+        noOfTries += 1
+        guess = getCharSet("Head or Tail (H or T): ", coin)
+
+        if guess == tossOutcome:
+            print("Correct!")
+            break
+        else:
+            print("Incorrect.")
+
+    print("You got it in {} tosses!".format(noOfTries))
+
+#lab3Q6d
+def main():
+    while True:
+        playGame()
+        stop = input("Play again? (y/n): ")
+        if stop[0] in "Nn":
+            break
+        
+    print("Program end")
+
+main()
+
+
+
+
+
+
+
+
+# lab3Q10
+def divide(x, y):
+    quotient = 0
+    while x >= y:
+        x = x - y
+        quotient += 1
+
+    return quotient, x
+
+#   x    y         quotient    
+#   11   4     7   1
+#   7    4     3   2
+#   3    4  STOP   x become remainder
+
+def main():
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+    quotient, remainder = divide(num1, num2)
+    print(quotient, remainder)
+
+#main()
+# lab3Q8
+def sumSquares(num):
+    sumOfSquares = 0
+    # 1**2  2**2  3**2   4**2
+    # 1*1    2*2  3*3    4*4
+    for i in range(1, num+1):
+        sumOfSquares = sumOfSquares + i*i
+    
+    return sumOfSquares
+
+def main():
+    num = int(input("Enter a number: "))
+    result = sumSquares(num)
+    print("Sum of squares for {} = {}".format(num, result))
+
+#main()
+
+# lab3Q7
+def displayFromTo(x, y):
+    for i in range(x, y+1):         # 1 2 3 4 5
+        print(i)
+
+def main():
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+    displayFromTo(num1, num2)
+
+#main()
+
+
+
+
+
+from myLib import getIntegerRange, getCharSet
+
+def main():
+    ch = getCharSet("Enter gender: ", "MmFf")
+    print("You entered", ch)
+
+#main()
+
+
+
+def lab3Q3a():
+    number = int(input("Enter number: "))
+    for i in range(1, number+1):
+        print("{} x {} = {}".format(i, number, i*number))
+
+def lab3Q3b():
+    while True:
+        number = int(input("Enter number: "))
+        if number == -1:
+            break
+        
+        for i in range(1, number+1):
+            print("{} x {} = {}".format(i, number, i*number))
+
+#lab3Q3b()
+
+#lab3Q5
+def getIntegerRange(prompt, min, max):
+    while True:
+        value = int(input(prompt))
+      
+        if min <= value <= max:
+            return value
+        else:
+            print("Sorry, please re-enter within range")
+
+def menuOption():
+    print("Menu")
+    print("1. Action A")
+    print("2. Aciton B")
+    print("3. Action C")
+    print("0. Quit")
+    option = getIntegerRange("Enter choice: ",0,3)
+    return option
+
+def actionA():
+    print("Action A selected")
+
+def actionB():
+    print("Action B selected")
+
+def actionC():
+    print("Action C selected")
+
+def main():
+    # display of menu, getting option and decision flow
+    while True:
+        option = menuOption()
+        if option == 0:
+            break
+        elif option == 1:
+            actionA()
+        elif option == 2:
+            actionB()
+        else:
+            actionC()
+
+#main()
+
+
+
+
+
+
+
+
+
+
+def testFunction():
+    print("Hello from a function")
+    return
+
+def salutation(gender):
+    if gender[0] in "Mm":
+        return "Mr."
+    else:
+        return "Ms."
+
+def testFunction1(name, gender="M", yearBorn=1970):
+    print("Hello {} {}, I am a function".format(salutation(gender), name))
+    print("You are {} years old".format(2020-yearBorn))
+    return
+
+#testFunction1("Jie Feng", "m", 1990)
+#testFunction1("Shirley", "F", 1999)
+
+
+#returnValue = salutation("m")
+#print(returnValue)
+#returnValue = salutation("f")
+#print(returnValue)
+
+
+
+
+
+
+
+
+
+
+
+
+
+from random import randint
+
+def guessingGame():
+    diceValue = randint(1, 6)
+    tries = 1
+    while tries <= 3:
+        guess = int(input("Try {}. Enter guess: ".format(tries)))
+        if diceValue == guess:
+            print("You got it!")
+            break
+
+        print("Incorrect")
+        tries += 1
+
+    if tries > 3:
+        print("Sorry, value is {}".format(diceValue))
+
+def main():
+    while True:
+        guessingGame()  # play one game
+        playAgain = input("Continue? y/n: ")
+        if playAgain[0] in "Nn":
+            break
+
+#main()      
+
+
+
+
+
+
+def nestedLoop2():
+
+    for x in range(1,5):
+        for y in range(1,11):
+            print("{} * {} = {}".format(x, y, x*y))
+
+#nestedLoop2()
+
+
+#lab 3-4
+def lab3Q4():
+    totalPrice = 0
+
+    while True:
+        quantity = int(input("Enter quantity: "))
+
+        if quantity == -1:
+            break
+
+        unitPrice = float(input("Enter unit Price: "))
+        subTotal = quantity * unitPrice
+        totalPrice = totalPrice + subTotal
+        print("Subtotal is ${:.2f}".format(subTotal))
+
+    print("Total price is ${:.2f}".format(totalPrice))
+    gst = totalPrice * 0.07
+    print("GST is ${:.2f}".format(gst))
+    print("Please pay ${:.2f}".format(totalPrice + gst))
+  
+#lab3Q4()
+
+from random import randint
+
+def guessingGame():
+    diceValue = randint(1, 6)
+    tries = 1
+    while tries <= 3:
+        guess = int(input("Try {}. Enter guess: ".format(tries)))
+        if diceValue == guess:
+            print("You got it!")
+            break
+
+        print("Incorrect")
+        tries += 1
+
+    if tries > 3:
+        print("Sorry, value is {}".format(diceValue))
+
+#lab3-5
+def lab3Q5():
+    # display of menu, getting option and decision flow
+    while True:
+        print("Menu")
+        print("1. guessing")
+        print("2. Action B")
+        print("3. shopping")
+        print("0. Quit")
+        option = int(input("Enter choice: "))
+        if option < 0 or option > 3:
+            print("Invalid option") 
+        if option == 0:
+            break
+        elif option == 1:
+            guessingGame()
+        elif option == 2:
+            print("Action B selected")
+        else:
+            lab3Q4()
+
+#lab3Q5()
+
+
+
+def lab3Q2c():
+    while True:
+        word = input("Input string: ")
+        if word.lower() == 'exit':
+            break
+
+        number = int(input("Number of times to repeat: "))
+        for i in range(number):
+            print(word)
+
+    print('end')
+
+#lab3Q2c()
+
+
+
+
+
+#guessingGame()
+
+
+def guessingGame2():
+    diceValue = 4
+    for tries in range(1,4):  # 1 2 3 
+        guess = int(input("Try {}. Enter guess: ".format(tries)))
+        if diceValue == guess:
+            print("You got it!")
+            break    # can also break in for loop
+
+        print("Incorrect")
+    else: # this next line will execute if "for" loop end after all runs
+        print("Sorry, value is {}".format(diceValue))
+
+    print("bye")
+
+#guessingGame2()
+
+
+
+
+
+def whileSamples():
+    # while example 1
+    stop = input("(R)epeat or (S)top : ")
+    while stop[0] not in "Ss":
+        print("ok, let's repeat one more time")
+        stop = input("(R)epeat or (S)top : ")
+
+    print("Done#1 !!")
+
+    # while example 2
+    while True:
+        stop = input("(R)epeat or (S)top : ")
+        if stop[0] in "Ss":
+            break
+        
+        print("ok, let's repeat one more time")
+
+    print("Done#2 !!")
+
+#whileSamples()
+
+
+
+
+def lab3Q2a():
+    word = input("Enter a Word:")
+    num_times = int(input("Enter the number of times:"))
+    for i in range (num_times):
+        print (word)
+
+
+def lab3q2b():
+    #input
+    strinput = input("Input string:")
+    #processing and output
+    for i in range(0, len(strinput)):
+        print(strinput[0:i+1])
+#    h  e  l  l  o       range(0, 5)
+# i  0  1  2  3  4       len("hello") = 5
+# 0  strinput[0:1]   => h
+# 1  strinput[0:2]   => he
+# 2  strinput[0:3]   => hel
+# 3  strinput[0:4]   => hell
+# 4  strinput[0:5]   => hello
+
+#lab3q2b()
+
+
+
+
+# modify to allow any length of digits to be entered
+# compute the sum of all the digits
+
+def lab1Q3_1():
+    # instead of int, we accept string as-is
+    # number = int(input("Enter 3-digit Integer : "))
+    numberString = input("Enter any Postive Integer : ")
+    #ones = int(numberString[2])       # number % 10 
+    #tens = int(numberString[1])      # number // 10 % 10
+    #hundreds = int(numberString[0])   # number // 100
+    if numberString.isdigit():
+        #total = 0
+        for char in numberString:
+            # total = int(char)  Wrong
+            total = total + int(char)
+        print("Sum =", total)
+    else:
+        print("Please only enter postive integer")
+
+#lab1Q3_1()
+
+
+
+
+
+def forLoopString():
+    print("looping thru a string")
+    country = input("Enter your country: ")
+    for char in country:
+        print(char.upper())
+
+#forLoopString()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#lab 3-1a
+def lab3Q1a():
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+
+    for i in range(num1, num2+1):         # 1 2 3 4 5
+        print(i)
+
+#lab3Q1a()
+
+# Modify the program to display the sum of the consecutive numbers after the consecutive numbers.
+
+def lab3Q1b():
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+
+    total = 0
+    for i in range(num1, num2+1):         # 1 2 3 4 5
+        print(i)
+        total = total + i
+    
+    print(total)
+
+#lab3Q1b()
+
+# Modify program in 1b to cater for any 2 integer input sequence. If the first is smaller than the second, print from the smaller to larger. If the first is greater than the second, print from the larger down to the smaller. Use only 1 loop structure for the printing.
+
+def lab3Q1c():
+    num1 = int(input("Enter first number: "))
+    num2 = int(input("Enter second number: "))
+
+    if num1 < num2:
+        step = 1
+    else:
+        step = -1
+
+    total = 0                           # 5 4 3 2 1 
+    for i in range(num1, num2+step, step):    # range(5, 1-1, -1)   
+        print(i)
+        total = total + i
+    
+    print(total)        
+
+#lab3Q1c()
+
+
+
+def slide8Example():
+    n = int(input("How many numbers do you have? "))
+  
+    if n <= 0:
+        print("\nThe number {} is invalid".format(n))
+    else:
+        sum = 0.0
+        for i in range(n):
+            x = float(input("Enter a number >> "))
+            sum = sum + x
+            #print(sum)
+        print("\nThe average of the numbers is {:.2f}".format(sum/n))
+
+#slide8Example()
+
+
+
+
+
+def slide7Example():
+    print ("for i in range(5)")
+    for i in range(5):              # 0 1 2 3 4
+        print(i)  
+
+    print ("for i in range(1, 5+1)")
+    for i in range(1, 5+1):         # 1 2 3 4 5
+        print(i)
+
+    print ("for i in range(0, 10, 2)")
+    for i in range(0, 10, 2):       # 0 2 4 6 8
+        print(i)
+
+    print ("for i in (10, 2, -2)")
+    for i in range(10, 2, -2):      # 10 8 6 4
+        print(i)
+
+    print ("for i in range(10, 1, 1)")  
+    for i in range(10, 1, 1):  # 10 < 1???  NOPE
+        print(i)
+
+#slide7Example()
+
+
+
+
+def slide4Example():
+    x = 11
+    print(x)  #11
+    x = x + 1
+    print(x)  #12
+    x = x + 1
+    print(x)  #13
+    x = x + 1
+    print(x)   #14
+    x = x + 1
+    print(x)  #15
+    x = x + 1
+  
+    x = 11
+    if x <= 15:
+        print("using if", x)
+        x = x + 1    # will not jump back to line 16
+
+    for x in range(11, 16):   # from 11 to 16, excluding 16
+        print("using for loop", x )  
+        
+    # x = 11, check if < 16   
+    #   if yes, repeat/do line 21, else goto line 22
+    # line 21 print
+    # increment x by 1, go back to line 20
+    
+
+#slide4Example()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Warm up exercise (Seminar 2 Review)
+
+def sem2_review():
+    # handling inputs 
+    height = float(input("Enter height in meters(decimals): "))
+    weight = float(input("Enter weight in kg: "))
+
+    # processing - use of assignment, operators
+    bmi = weight / (height * height)
+
+    # output BMI and catergory 
+    print("Your BMI is {:.1f}".format(bmi), end=" ")
+
+    # n-way selection
+    if bmi >= 30:
+        print("and you are Obese")  # executed 0 or 1 time
+    elif bmi >= 25:
+        print("and you are Overweight")
+    elif bmi >= 18.5:
+        print("and you are Healthy")
+    else:  # < 18.5
+        print("and you are Underweight")
+
+#sem2_review()
+
+    # Obese		        >= 30
+    # Overweight	    25-29.9
+    # Healthy weight    18.5-24.9
+    # Underweight	    < 18.5
